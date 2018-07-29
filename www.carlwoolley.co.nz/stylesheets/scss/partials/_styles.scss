@@ -1,0 +1,372 @@
+/*//////////////////////////////////////////////////////////////////////////////
+//  Styles
+//////////////////////////////////////////////////////////////////////////////*/
+
+/*
+TABLE OF CONTENTS
+
+01 - Reset
+02 - Global
+03 - General Layout
+04 - Header
+05 - Content
+06 - Sidebar
+07 - Footer
+08 - Media Queries
+*/
+
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  01 - Reset
+//////////////////////////////////////////////////////////////////////////////*/
+// See scss/_normalize.scss
+
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  02 - Global
+//////////////////////////////////////////////////////////////////////////////*/
+
+* {
+	box-sizing: border-box;
+}
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  03 - General Layout
+//////////////////////////////////////////////////////////////////////////////*/
+
+body {
+	&.lock-scroll {
+		height: 100%;
+		overflow: hidden;
+	}
+}
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  04 - Header
+//////////////////////////////////////////////////////////////////////////////*/
+
+header {
+	position: relative;
+	background-color: #333;
+	@include transition(padding .3s linear);
+	&.active {
+		@media only screen and (min-width: 769px) {
+		padding-bottom: 60px;
+		} // medium
+	}
+	.header-container {
+		position: relative;
+		
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 1200px;
+			margin: auto;
+			top: 0;
+			left: -80px;
+			right: -80px;
+			height: 100%;
+			background-color: #231f20;
+			@include transform-origin(center);
+			@include transform(skew(-25deg));
+		}
+	@media only screen and (max-width: $breakpoint-medium) {
+			background: #231f20;
+			padding: 0;
+			&:before {
+				content: '';
+				background: #999999;
+				display: block;
+				position: absolute;
+				left: 0;
+				top:0;
+				right: auto;
+				bottom:0;
+				width:80px;
+				@include transform-origin(top);
+				@include transform(skew(-25deg));
+			}
+		}
+	}
+	.column-wrapper {
+		position: relative;
+	}
+}
+
+.header-primary {
+	@include clearfix;
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	@media only screen and (max-width: $breakpoint-medium) {
+		display: block;
+	} // medium
+}
+
+#logo {
+	max-width: 180px;
+	margin: 0;
+	float: left;
+	@media only screen and (max-width: $breakpoint-medium) {
+		float: none;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-left:90px;
+		max-width: 130px;
+	} // medium
+}
+
+.main-nav-container {
+	width: calc(100% - 190px);
+	float: left;
+	color: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	@media only screen and (max-width: $breakpoint-medium) {
+		display: block;
+		width: 100%;
+		position: fixed;
+		top: 58px;
+		left:-100vw;
+		right:0;
+		bottom:0;
+		z-index: 9999;
+		overflow-y: scroll;
+		background-color: #000;
+		@include transition(all .25s ease-in-out);
+		&.active {
+			left: 0;
+		}
+	} // medium
+}
+
+.main-nav {
+	@include clear-list;
+	//@include display(flex);
+	text-align: center;
+	float: left;
+	width: calc(100% - 200px);
+	@media only screen and (max-width: $breakpoint-medium) {
+		width: 100%;
+		text-align: left;
+		display: block;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	} // medium
+	> li {
+		white-space: nowrap;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		@media only screen and (max-width: $breakpoint-medium) {
+			padding-top: 0;
+			padding-bottom: 0;
+		} // medium
+		a {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+	}
+	li {
+		display: inline-block;
+		text-transform: uppercase;
+		font-size: 14px;
+		@media only screen and (max-width: $breakpoint-medium) {
+			display: block;
+			font-size: 18px;
+			font-weight: 600;
+		} // medium
+
+		&.active-trail {
+			> a {
+				&:after {
+					content:"";
+					display: block;
+					position: absolute;
+					left:-10px;
+					right:0;
+					top: calc(100% + 4px);
+					height: 10px;
+					border-top: 4px solid $brand-color;
+				
+					@include transform-origin(center);
+					
+					@media only screen and (max-width: $breakpoint-medium) {
+						border-top: none;
+						border-left: 4px solid $brand-color;
+						left: 20px;
+						right: auto;
+						top: 10px;
+						bottom: 10px;
+						height: auto;
+					} // medium
+				}
+			}
+		} //active-trail
+	}
+
+	a {
+		color: #ffffff;
+		position: relative;
+		display: block;
+		padding: 0 20px;
+		@include transition(all .25s ease-in-out);
+		&:hover {
+			color: $brand-color;
+			text-decoration: none;
+		}
+		@media only screen and (max-width: $breakpoint-medium) {
+			padding: 0 40px;
+		} // medium
+	}
+
+
+}
+
+
+.sub-nav {
+	display: none;
+	position: absolute;
+	top: 100%;
+	width: 100vw;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	text-align: center;
+	padding: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #333;
+	@media only screen and (max-width: $breakpoint-medium) {
+		position: relative;
+		top: 0;
+		left: 0;
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		text-align: left;
+		padding-left: 20px;
+		padding-top: 0;
+	} // medium
+	li {
+		display: inline-block;
+		position: relative;
+		white-space: nowrap;
+		font-size: 12px;
+		@media only screen and (max-width: $breakpoint-medium) {
+			display: block;
+			font-size: 16px;
+		} // medium
+	}
+	ul {
+		@include clear-list;
+		overflow: hidden;
+		margin: 0;
+	}
+
+
+}
+
+
+	
+
+
+
+.menu-button {
+	padding: 10px;
+	display: none;
+	@media only screen and (max-width: $breakpoint-medium) {
+		display: block;
+		position: absolute;
+		left: 10px;
+		top: 10px;
+	} // medium
+}
+
+.burger-icon {
+	@include burger(25px, 3px, 5px, #ffffff);
+}
+
+.menu-button.is-active .burger-icon {
+	@include burger-to-cross;
+}
+
+
+
+	i {
+		text-align: center;
+		display: inline-block;
+		vertical-align: middle;
+		width: 15px;
+		margin-right: 5px;
+	}
+	span.text {
+		font-weight: 600;
+	}
+	span.favourite-count,
+	span.wishlist-count {
+		font-weight: 700;
+	}
+
+
+
+
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  05 - Content
+//////////////////////////////////////////////////////////////////////////////*/
+
+section {
+	padding-top: 40px;
+	padding-bottom: 40px;
+
+	.testing {
+		font-family: 'source-sans';
+		font-variation-settings: "wght" 850, "wdth" 100, "ital" 1;
+	}
+}
+p {
+	transition: all .25s ease-in-out;
+	font-variation-settings: "wght" 650;
+	&:hover {
+		font-variation-settings: "wght" 950;
+	}
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  06 - Sidebar
+//////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  07 - Footer
+//////////////////////////////////////////////////////////////////////////////*/
+
+footer {
+	background: $background-color;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	p {
+		font-size: 0.8em;
+	}
+	a {
+		text-decoration: none;
+	}
+}
+
+/*//////////////////////////////////////////////////////////////////////////////
+//  08 - Media Queries
+//////////////////////////////////////////////////////////////////////////////*/
+
+// Let's avoid using these and keep responsive styling adjustments inline (assigned within the affected element)
+@media only screen and (max-width: $breakpoint-large) {} // large
+@media only screen and (max-width: $breakpoint-medium) {} // medium
+@media only screen and (max-width: $breakpoint-smallish) {} // smallish
+@media only screen and (max-width: $breakpoint-small) {} // small

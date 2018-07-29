@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Custom Styles for Slideshows
+   ========================================================================== */
+
+.slick-prev, 
+.slick-next {
+    &:before {
+    	font-size: 20px;
+    	opacity: .75;
+    	color: $brand-color;
+    }
+}
+
+.slick-dots {
+    li {
+    	button {
+    		&:before {
+    			font-size: 12px;
+    		}
+    	}
+    }
+}
